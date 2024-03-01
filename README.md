@@ -15,7 +15,7 @@ If you like my work here, I would be happy if you consider a tip
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B4V3TJ6)
 
-### First off. Why?
+## First off. Why?
 QIDIs X-3 series printers are made out of hardware with very good potential, but they do have outdated software. <br />
 **The printers could work better/faster with higher usability for every user.**
 
@@ -63,7 +63,7 @@ I will describe step by step what and how I did it. Please follow carefully if y
 ### Installing Armbian and Klipper:
 
 1. Thanks to redrathnure there is a great Armbian based OS that we use as a foundation.
-2. So download the latest Armbian from https://github.com/redrathnure/armbian-mkspi to get started.
+2. So download the latest Armbian from https://github.com/redrathnure/armbian-mkspi to get started.<br />
 (I used „Armbian-unofficial_24.2.0-trunk_Mkspi_bookworm_edge_6.6.7.img.xz“)
 
 3. Turn your printer off, wait ~30s.
@@ -74,25 +74,33 @@ I will describe step by step what and how I did it. Please follow carefully if y
 8. Connect to your printer via putty (or a similar program) using its IP address.
    
 Log in as
+
 ```
 user: root
 password: 1234
 ```
-<br />
+
 You will be asked to create a new user.<br />
+<br />
 Create
+
 ```
 user: mks
 password: makerbase
 ```
+
 Now start a new session in putty and login as user „mks“.<br />
+<br />
 Update everything with
+
 ```
 sudo apt update
 sudo apt upgrade
 ```
 
 #### Install KIAUH
+
+Update and get the latest kiauh
 ```
 sudo apt-get update && sudo apt-get install git -y
 cd ~ && git clone https://github.com/dw-0/kiauh.git
@@ -100,6 +108,7 @@ cd ~ && git clone https://github.com/dw-0/kiauh.git
 ```
 
 Via KIAUH install these software in this order:
+
 ```
 Klipper
 Moonraker
@@ -127,11 +136,13 @@ The reason for this is, because we will flash a special bootloader named „kata
 #### Installing katapult:
 
 If not still open, login via putty as user „mks“ and do
+
 ```
 git clone https://github.com/Arksine/katapult
 cd ~/katapult
 make menuconfig
 ```
+
 First, change the μC Architecture to RP2040
 <p align="center">
 <img src="/screenshots/02.png">
@@ -150,19 +161,25 @@ Finish by hitting „q“ and save with „y“:
 <p align="center">
 <img src="/screenshots/04_1.png">
 </p>
+
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
+
 ```
 make clean
 make -j4
 ```
+
 You should see something like this:<br />
 <p align="center">
 <img src="/screenshots/05.png">
 </p>
+
 You should be able to see the RP2040 if you type:
+
 ```
 ls /dev/serial/by-id/*
 ```
+
 <p align="center">
 <img src="/screenshots/06.png">
 </p>
@@ -176,10 +193,12 @@ Put the tool head board in dfu mode like this:
 4. Release the „boot“ button.
 
 Now prepare everything for flashing the katapult bootloader by this:
+
 ```
 sudo mount /dev/sda1 /mnt
 systemctl daemon-reload
 ```
+
 <p align="center">
 <img src="/screenshots/07.png">
 </p>
@@ -187,20 +206,26 @@ You will be asked to authenticate by entering the password:<br />
 <p align="center">
 <img src="/screenshots/08.png">
 </p>
+
 Now flash katapult to the RP2040 and unmount it:
+
 ```
 sudo cp out/katapult.uf2 /mnt
 sudo umount /mnt
 ```
+
 If you check your devices again, you will see, that the klipper firmware was replaced with katapult
+
 ```
 ls /dev/serial/by-id
 ```
+
 It’s now possible to flash klipper with no access to the printer.
 You can attach the back cover of the print head back on.
 
 
 Now let‘s flash latest klipper
+
 ```
 cd ~/klipper
 make menuconfig
@@ -214,26 +239,33 @@ Quit with „q“ and save with „y“:<br />
 <p align="center">
 <img src="/screenshots/10.png">
 </p>
+
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
+
 ```
 make clean
 make -j4
 ```
+
 Check again for your device and remember the device ID by
 
-https://openqidi.com/link/16#bkmrk-ls-%2Fdev%2Fserial%2Fby-id-2
  ```
 ls /dev/serial/by-id/*
 ```
+
 <p align="center">
 <img src="/screenshots/11.png">
 </p>
+
 ID is in this case “/dev/serial/by-id/usb-katapult_rp2040_C5DA4D951E145858-if00”
 Install python3-serial to be able to invoke the flash process:
+
 ```
 sudo apt install python3-serial
 ```
+
 Now flash the toolhead – make sure to use YOUR device ID:
+
 ```
 python3 ~/katapult/scripts/flashtool.py -f ~/klipper/out/klipper.bin -d /dev/serial/by-id/usb-katapult_rp2040_C5DA4D951E145858-if00
 ```
@@ -249,10 +281,12 @@ Done.The tool head is now on the latest klipper firmware :)
 ## Flashing klipper to the STM32F402 mainboard MCU
 
 Similar to flashing the rp2040 you need to:
+
 ```
 cd ~/klipper
 make menuconfig
 ```
+
 Set everything according to this screenshot:<br />
 <p align="center">
 <img src="/screenshots/13.png">
@@ -262,20 +296,25 @@ Quit with „q“ and save with „y“:<br />
 <img src="/screenshots/14.png">
 </p>
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
+
 ```
 make clean
 make -j4
 ```
-This will generate a **„klipper.bin“** file in the **/home/mks/klipper/out/** folder.
-Use your favourite program to get this file onto your computer (I am using WinSCP).
 
-
-Format a microSD card as FAT32 (not lager in size then 32GB – maybe larger sized SD-cards will work if you create a partition not larger then 32GB).
-Copy the „klipper.bin“ file to this SD-card and rename it to **„X_4.bin“**.
-Eject the microSD card.
-Shut down your printer and wait at least 30sec.
-Put the microSD card into the SD card slot of the printers mainboard.
-Turn the printer on. The mainboard STM32F402 MCU will now be flashed (which takes about 10sec, but make sure to not turn it down before 1min… just in case).
+This will generate a **„klipper.bin“** file in the **/home/mks/klipper/out/** folder.<br />
+<br />
+Use your favourite program to get this file onto your computer (I am using WinSCP).<br />
+<br />
+<br />
+Then:
+1. Format a microSD card as FAT32 (not lager in size then 32GB – maybe larger sized SD-cards will work if you create a partition not larger then 32GB).
+2. Copy the „klipper.bin“ file to this SD-card and rename it to **„X_4.bin“**.
+3. Eject the microSD card.
+4. Shut down your printer and wait at least 30sec.
+5. Put the microSD card into the SD card slot of the printers mainboard.
+6. Turn the printer on.
+The mainboard STM32F402 MCU will now be flashed (which takes about 10sec, but make sure to not turn it down before 1min… just in case).
 
 
 If you now go to the machine settings of the web interface (mainsail/fluidd) you will see the current klipper version of the sub systems:<br />
@@ -288,19 +327,27 @@ Unleash the full potential of the printer
 For best results, a CoreXY printer needs the right and very similar tension of the belts. Fortunately there is a tool called “Klippain Shake&Tune” made by Frix-x (see here https://github.com/Frix-x/klippain-shaketune).
 This tool gives you insights and a nice graph to compare the belts etc.
 To install it, simply do:
+
 ```
 wget -O - https://raw.githubusercontent.com/Frix-x/klippain-shaketune/main/install.sh | bash
 ```
+
 To activate it, include this to your printer.cfg:
 
+```
 [include K-ShakeTune/*.cfg]
+```
 
 You can use this module now and the probably most useful ones being the one for measuring/comparing the belt tension, that you use by writing this in the mainsail/fluid console:
+
 ```
 BELTS_SHAPER_CALIBRATION
 ```
+
 When you are happy with your belts and tensioned it to a state they look good, you may want to recalibrate the input shapers like:
+
 ```
 AXES_SHAPER_CALIBRATION
 ```
+
 There are tons of information, so please have a look at the great documentation and examples given by Frix-x on its github page.
