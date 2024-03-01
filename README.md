@@ -3,12 +3,11 @@ This starts as a **simple tutorial for everyone to repeat and follow** - as simp
 Later I will add custom images to make it even faster and easier for all!
 
 ## Who and what?
-This tutorial is written for folks who are „not completely happy“ with their QIDI printers and want to get full access to the printer and unleash its full potential.
-If you copy or take parts of this tutorial, please mention me, the author of this :)
-If you do have any questions, find errors or want to add something, please join the discord channel and ping me:
+This tutorial is written for folks who are „not completely happy“ with their QIDI printers and want to get full access to the printer and unleash its full potential.<br />
+If you copy or take parts of this tutorial, please mention me, the author of this :)<br />
+If you do have any questions, find errors or want to add something, please join the discord channel and ping me:<br />
 
-Discord channel: https://discord.gg/8AJE3EA4
-
+Discord channel: https://discord.gg/8AJE3EA4<br />
 Author: coco.33
 
 If you like my work here, I would be happy if you consider a tip
@@ -32,6 +31,7 @@ Here is a list of software that bottlenecks the full functionality of the printe
 Before you start, please understand that you will wipe the entire disk and build your OS from scratch.<br />
 You will also update all sub-systems (print head „THR“ and the STM32F402 MCU on the mainboard) to the latest klipper.<br />
 So you will have an entirely free and custom 3D printer.<br />
+<br />
 Please note, that this will all be done to your own risk and please do not contact the QIDI support if you have any issues. By making these changes, you will lose your warranty in this regard.<br />
 There is however a „recovery“-image, that will restore the system to a state that QIDI ships their printers. You then only have to „downgrade“ the THR toolhead board and the mainboard MCU and you are basically back to the start and you should have your warranty back :)
 
