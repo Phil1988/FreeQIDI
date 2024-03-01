@@ -9,6 +9,10 @@ If you do have any questions, find errors or want to add something, please join 
 Discord channel: https://discord.gg/8AJE3EA4
 Author: coco.33
 
+If you like my work here, I would be happy if you consider a tip
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B4V3TJ6)
+
 ### First off. Why?
 QIDIs X-3 series printers are made out of hardware with very good potential, but they do have outdated software. The printers could work better/faster with higher usability for every user.
 Here is a list of software that bottlenecks the full functionality of the printer by time of writing this:
@@ -96,8 +100,7 @@ When asked for the python version, make sure to select python 3.x.
 
 When you access your printer via a web browser, you will see the web interface Mainsail (or Fluidd). It will show you an error like this:
 
-
-+++++++IMG
+<img src="/screenshots/01.png">
 This is because the sub systems being not yet updated with the latest klipper firmware.
 
 
@@ -118,25 +121,25 @@ cd ~/katapult
 make menuconfig
 ```
 First, change the μC Architecture to RP2040
-+++++++IMG
-+++++++IMG
+<img src="/screenshots/02.png">
+<img src="/screenshots/03.png">
 
 Make sure to build a katapult deployment application with the right size:
 Finish by hitting „q“ and save with „y“:
-+++++++IMG
+<img src="/screenshots/04.png">
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
 ```
 make clean
 make -j4
 ```
 You should see something like this:
-+++++++IMG
+<img src="/screenshots/05.png">
 
 You should be able to see the RP2040 if you type:
 ```
 ls /dev/serial/by-id/*
 ```
-+++++++IMG
+<img src="/screenshots/06.png">
 
 You can see there is klipper installed on the RP2040
 
@@ -153,10 +156,10 @@ Now prepare everything for flashing the katapult bootloader by this:
 sudo mount /dev/sda1 /mnt
 systemctl daemon-reload
 ```
-+++++++IMG
+<img src="/screenshots/07.png">
 
 You will be asked to authenticate by entering the password:
-+++++++IMG
+<img src="/screenshots/08.png">
 
 Now flash katapult to the RP2040 and unmount it:
 ```
@@ -178,9 +181,9 @@ make menuconfig
 ```
  
 Set everything like you did with katapult like this:
-+++++++IMG
+<img src="/screenshots/09.png">
 Quit with „q“ and save with „y“:
-+++++++IMG
+<img src="/screenshots/10.png">
 
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
 ```
@@ -193,7 +196,7 @@ https://openqidi.com/link/16#bkmrk-ls-%2Fdev%2Fserial%2Fby-id-2
  ```
 ls /dev/serial/by-id/*
 ```
-+++++++IMG
+<img src="/screenshots/11.png">
 
 ID is in this case “/dev/serial/by-id/usb-katapult_rp2040_C5DA4D951E145858-if00”
 Install python3-serial to be able to invoke the flash process:
@@ -206,7 +209,7 @@ python3 ~/katapult/scripts/flashtool.py -f ~/klipper/out/klipper.bin -d /dev/ser
 ```
 
 You should see something like this:
-+++++++IMG
+<img src="/screenshots/12.png">
 
 
 Done.The tool head is now on the latest klipper firmware :)
@@ -220,9 +223,9 @@ cd ~/klipper
 make menuconfig
 ```
 Set everything according to this screenshot:
-+++++++IMG
+<img src="/screenshots/13.png">
 Quit with „q“ and save with „y“:
-+++++++IMG
+<img src="/screenshots/14.png">
 
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
 ```
@@ -242,7 +245,7 @@ Turn the printer on. The mainboard STM32F402 MCU will now be flashed (which take
 
 
 If you now go to the machine settings of the web interface (mainsail/fluidd) you will see the current klipper version of the sub systems:
-+++++++IMG
+<img src="/screenshots/15.png">
 
 
 Unleash the full potential of the printer
