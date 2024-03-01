@@ -1,5 +1,5 @@
 # A tutorial to make a clean and recent armbian-klipper system
-This starts as a tutorial for everyone to repeat and follow - as simple as I can do it for you :)
+This starts as a **simple tutorial for everyone to repeat and follow** - as simple as I can do it for you :)<br />
 Later I will add custom images to make it even faster and easier for all!
 
 ## Who and what?
