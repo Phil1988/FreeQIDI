@@ -217,7 +217,7 @@ sudo umount /mnt
 If you check your devices again, you will see, that the klipper firmware was replaced with katapult
 
 ```
-ls /dev/serial/by-id
+ls /dev/serial/by-id/*
 ```
 
 It’s now possible to flash klipper with no access to the printer.
