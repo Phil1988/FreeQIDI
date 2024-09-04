@@ -293,7 +293,7 @@ Set everything according to this screenshot:<br />
  </p>
 Quit with „q“ and save with „y“:<br />
 <p align="center">
-<img src="/screenshots/14.png">
+<img src="/screenshots/14_1.png">
 </p>
 Now build the firmware by first cleaning the workspace and then compile with all 4 cores:
 
