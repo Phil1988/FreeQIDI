@@ -7,7 +7,8 @@ This tutorial is written for folks who are „not completely happy“ with their
 If you copy or take parts of this tutorial, please mention me, the author of this :)<br />
 If you do have any questions, find errors or want to add something, please join the discord channel and ping me:<br />
 
-Discord channel: https://discord.gg/8AJE3EA4<br />
+Discord channel: https://discord.gg/TPH3KvKDvQ
+<br />
 Author: coco.33
 
 If you like my work here, I would be happy if you consider a tip
